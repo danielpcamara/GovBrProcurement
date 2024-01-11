@@ -1,3 +1,4 @@
+print(f"## Starting {__name__} ##")
 import asyncio
 import aiohttp
 import requests
@@ -7,12 +8,10 @@ import os
 import aiofile
 import nest_asyncio
 
-print(__name__)
-
 if __name__ == '__main__':
-    from crawler_base import CrawlerBase, Licitacao
+    from crawler_base import CrawlerBase
 else:
-    from .crawler_base import CrawlerBase, Licitacao
+    from .crawler_base import CrawlerBase
 
         
 class CrawlerOxy(CrawlerBase):
@@ -196,8 +195,8 @@ class CrawlerOxy(CrawlerBase):
         # https://cmpg.oxy.elotech.com.br/portaltransparencia-api/api/licitacoes/sei?processoAdmId=93cf4b8c-7165-4abb-a909-38d47861f135
         pass
 
-if __name__ == '__main__':
-    print('oxy main')
+
+if __name__ == '__main__': 
 
     o = CrawlerOxy(1, "cmpg.oxy.elotech.com.br", 4119905, "Ponta Grossa (PR)")
 

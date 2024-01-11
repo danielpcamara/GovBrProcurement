@@ -1,3 +1,4 @@
+print(f"## Starting {__name__} ##")
 if __name__ == '__main__':
     from crawler_oxy import CrawlerOxy
     from crawler_base import CrawlerBase

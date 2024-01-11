@@ -34,8 +34,17 @@ Install tesseract exe from https://github.com/UB-Mannheim/tesseract/wiki ("Addit
 Then add to PATH
 pip install opencv-python
 pip install pytesseract
+pip install pdf2image
+pip install python-dateutil
+Install tesserocr from https://github.com/sirfz/tesserocr/blob/master/Windows.build.md
+#v2:
+pip install ironpdf 
+pip install aiopytesseract
+install https://cmake.org/download
+.NET SDK
 ```
-
+Install Poppler from https://github.com/oschwartz10612/poppler-windows/releases/ OR if you have chocolatey: choco install poppler
+set Poppler as system variable
 
 
 ## Goal

@@ -1,0 +1,1 @@
+from .convert_pdf import get_text
