@@ -29,7 +29,7 @@ pip install jupyter
 pip install aiohttp
 pip install asyncio
 pip install aiofile
-#OCR
+#OCR and text extraction
 Install tesseract exe from https://github.com/UB-Mannheim/tesseract/wiki ("Additional language data (download) > portuguese" and "Additional script data (download) > Latin script" is requierd)
 Then add to PATH
 pip install opencv-python
@@ -42,6 +42,7 @@ pip install ironpdf
 pip install aiopytesseract
 install https://cmake.org/download
 .NET SDK
+pip install python-docx 
 ```
 Install Poppler from https://github.com/oschwartz10612/poppler-windows/releases/ OR if you have chocolatey: choco install poppler
 set Poppler as system variable
