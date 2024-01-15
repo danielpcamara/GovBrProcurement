@@ -18,6 +18,7 @@ Start venv from power Shell or...
 
 ...Start from VS Code, by selecting the interpreter:
 ```
+Ctrl+Shift+P
 Python: Create Environment 
 ```
 
@@ -43,6 +44,8 @@ pip install aiopytesseract
 install https://cmake.org/download
 .NET SDK
 pip install python-docx 
+#BERT
+✔ pip install transformers torch
 ```
 Install Poppler from https://github.com/oschwartz10612/poppler-windows/releases/ OR if you have chocolatey: choco install poppler
 set Poppler as system variable

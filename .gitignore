@@ -1,5 +1,9 @@
 # Extracted Data
 Files/
+bert-base-portuguese-cased/
+
+# Config File
+config.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

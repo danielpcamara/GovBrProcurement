@@ -196,7 +196,6 @@ class CrawlerBase:
         con.close()
         pass
 
-
     def extract_text_all_files(self):
 
         #PDF
