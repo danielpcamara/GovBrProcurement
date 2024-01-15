@@ -53,3 +53,5 @@
     #BERT
     pip install transformers torch
     ```
+
+5. Create a ```config.json``` file similar to ```config_example.json```

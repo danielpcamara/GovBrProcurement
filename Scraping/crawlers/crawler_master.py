@@ -8,14 +8,14 @@ else:
 
 
 class CrawlerMaster(CrawlerBase):
-    def __init__(self, crawlerid, url, idcity, city):
+    def __init__(self, crawlerid, url, idcity, city, uf):
         #print('master inti was call')
         vars(self).clear()
         if crawlerid == 1:
-            new_crawler = CrawlerOxy(crawlerid, url, idcity, city)
+            new_crawler = CrawlerOxy(crawlerid, url, idcity, city, uf)
             vars(self).update(vars(new_crawler))
             self.__class__ = new_crawler.__class__
         elif crawlerid == 2:
             vars(self).update(vars(CrawlerOxy))
             self.__class__ = CrawlerOxy
-            super().__init__(crawlerid, url, idcity, city)
+            super().__init__(crawlerid, url, idcity, city, uf)

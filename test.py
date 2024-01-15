@@ -13,5 +13,7 @@ with torch.no_grad():
     outs = model(input_ids)
     encoded = outs[0][0, 1:-1]
 
-print(encoded.shape)
-print(outs)
+last_hidden_states = outs[0]
+
+# Print the output features
+print(last_hidden_states)

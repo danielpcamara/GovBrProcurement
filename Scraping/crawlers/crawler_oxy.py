@@ -17,9 +17,9 @@ else:
 class CrawlerOxy(CrawlerBase):
     name = "Oxy"
     company = "Elotech"
-    def __int__(self, crawlerid, url, idcity, city):
+    def __int__(self, crawlerid, url, idcity, city, uf):
         #print('oxy inti was call')
-        super().__init__(crawlerid, url, idcity, city)
+        super().__init__(crawlerid, url, idcity, city, uf)
     
     def get_procurements(self):
         fullurl = 'https://{0}/portaltransparencia-api/api/licitacoes?page={1}&size=100'.format(self._url, '0')

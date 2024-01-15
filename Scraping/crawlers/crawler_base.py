@@ -12,12 +12,33 @@ import math
 import docx
 
 class CrawlerBase:
-    def __init__(self, crawlerid, url, idcity, city):
+    def __init__(self, crawlerid, url, idcity, city, uf):
         self._url = url
         self._id = crawlerid
         self._id_ibge = idcity
         self._cityhall = city
+        self._uf = uf
         #print('base inti was call')
+
+        if not(self.city_exists()):
+            self.create_city()
+
+    def create_city(self):
+        insert = f"INSERT INTO CITYS (ibge,uf,city_name,url_base,solution_id) VALUES( {self._id_ibge}, '{self._uf}' , '{self._cityhall}', '{self._url}', {self._id} );"
+        con = sqlite3.connect("scraped.db", timeout=50)
+        cursor = con.cursor()
+        cursor.execute(insert)
+        con.commit()
+        con.close()
+
+    def city_exists(self):
+        con = sqlite3.connect("scraped.db", timeout=50)
+        cur = con.cursor()
+        cur.execute(f"SELECT COUNT(*) FROM CITYS WHERE ibge=?", ([self._id_ibge]))
+
+        exists = cur.fetchall()[0][0] > 0
+        return exists
+    
     def __str__(self):
         return f"I'm the crawler of %s from the %s operating in the city ​​hall %s." % (self.name.upper(), self.company.upper(), self._cityhall.upper())
 
