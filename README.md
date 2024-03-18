@@ -54,6 +54,9 @@
     pip install transformers torch
     #GEMINI
     pip install -q -U google-generativeai
+    #Evaluation
+    pip install openpyxl
+    pip install pandas
     ```
 
 5. Create a ```config.json``` file similar to ```config_example.json```
