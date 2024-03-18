@@ -1,3 +1,7 @@
+# Excel files
+*.xlsx
+*.xls
+
 # Extracted Data
 Files/
 bert-base-portuguese-cased/

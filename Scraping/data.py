@@ -119,14 +119,6 @@ class Database():
                 );"""
         cursor.execute(data)
         con.commit()
-
-        data = """ INSERT INTO CITYS (ibge,uf,city_name,url_base,solution_id)
-                VALUES(
-                    4119905, 'PR' , 'Ponta Grossa', 'cmpg.oxy.elotech.com.br', 1
-                );"""
-
-        cursor.execute(data)
-        con.commit()
         
         con.close()
         pass

@@ -52,6 +52,9 @@
     pip install python-docx 
     #BERT
     pip install transformers torch
+    #GEMINI
+    pip install -q -U google-generativeai
     ```
 
 5. Create a ```config.json``` file similar to ```config_example.json```
+6. Copy 'bert-base-portuguese-cased' from https://huggingface.co/neuralmind/bert-base-portuguese-cased and save in the projects folder

@@ -1,4 +1,4 @@
-print(f"## Starting {__name__} ##")
+#print(f"## Starting {__name__} ##")
 import asyncio
 import aiohttp
 import requests
@@ -96,7 +96,6 @@ class CrawlerOxy(CrawlerBase):
         con.close()
 
         pass
-    
 
     def get_all_files(self):
 
@@ -131,15 +130,21 @@ class CrawlerOxy(CrawlerBase):
                 folder = file[4]
                 fname = file[5]
 
+                data = None
+
                 async with sema:
                     async with session.get(url) as resp: #session.get(url,timeout=120)
-                        assert resp.status == 200
-                        data = await resp.read()
-
-                async with aiofile.async_open(
-                    os.path.join(folder, fname), "wb"
-                ) as outfile:
-                    await outfile.write(data)
+                        try:
+                            assert resp.status == 200
+                            data = await resp.read()
+                        except:
+                            print(f"Error response status code: {resp.status}, for the url {url}")
+                
+                if data is not None:
+                    async with aiofile.async_open(
+                        os.path.join(folder, fname), "wb"
+                    ) as outfile:
+                        await outfile.write(data)
 
             async def main():
                 async with aiohttp.ClientSession() as session:
@@ -155,54 +160,5 @@ class CrawlerOxy(CrawlerBase):
         # https://cmpg.oxy.elotech.com.br/portaltransparencia-api/api/files/arquivo/1003026
         pass
 
-    def get_certidoes(self):
-        # https://cmpg.oxy.elotech.com.br/portaltransparencia-api/api/licitacoes/certidoes?entidade=1&exercicio=2023&tipoLicitacao=6&licitacao=9
-        pass
-    
-    def get_homologacoes(self):
-        # https://cmpg.oxy.elotech.com.br/portaltransparencia-api/api/homologacoes?entidade=1&exercicio=2023&tipoLicitacao=6&licitacao=9
-        pass
-
-    def get_cotacoes(self):
-        # https://cmpg.oxy.elotech.com.br/portaltransparencia-api/api/licitacoes/cotacoes?entidade=1&exercicio=2023&tipoLicitacao=6&licitacao=9
-        pass
-
-    def get_pareceres(self):
-        # https://cmpg.oxy.elotech.com.br/portaltransparencia-api/api/licitacoes/pareceres?entidade=1&exercicio=2023&tipoLicitacao=6&licitacao=9
-        pass
-
-    def get_atas(slef):
-        # https://cmpg.oxy.elotech.com.br/portaltransparencia-api/api/licitacoes/atas?entidade=1&exercicio=2023&tipoLicitacao=6&licitacao=9
-        pass
-
-    def get_precos(self):
-        # https://cmpg.oxy.elotech.com.br/portaltransparencia-api/api/licitacoes/precos?entidade=1&exercicio=2023&tipoLicitacao=6&licitacao=9
-        pass
-
-    def get_adjucoes(self):
-        # https://cmpg.oxy.elotech.com.br/portaltransparencia-api/api/adjudicacoes?entidade=1&exercicio=2023&tipoLicitacao=6&licitacao=9
-        pass
-
-    def get_licitacoes(self):
-        # https://cmpg.oxy.elotech.com.br/portaltransparencia-api/api/contratos/licitacao?entidade=1&exercicioLicitacao=2023&tipoLicitacao=6&numeroLicitacao=9
-        pass
-
-    def get_recursos(self):
-        # https://cmpg.oxy.elotech.com.br/portaltransparencia-api/api/licitacoes/recursos?entidade=1&exercicio=2023&tipoLicitacao=6&licitacao=9
-        pass
-
-    def get_sei(self): #?
         # https://cmpg.oxy.elotech.com.br/portaltransparencia-api/api/licitacoes/sei?processoAdmId=93cf4b8c-7165-4abb-a909-38d47861f135
         pass
-
-
-if __name__ == '__main__': 
-
-    o = CrawlerOxy(1, "cmpg.oxy.elotech.com.br", 4119905, "Ponta Grossa (PR)")
-
-    print(f'name: %s' % o.name)
-    print(f'company: %s' % o.company)
-    print(f'url: %s' % o.get_url())
-    print(f'city: %s' % o._cityhall)
-    print(f'id: %s' % o._id)
-    print(o)

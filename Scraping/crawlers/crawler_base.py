@@ -1,4 +1,5 @@
-print(f"## Starting {__name__} ##")
+#print(f"## Starting {__name__} ##")
+from abc import ABC, abstractmethod
 import sqlite3
 import os
 import asyncio
@@ -11,7 +12,19 @@ import time
 import math
 import docx
 
-class CrawlerBase:
+class CrawlerBase(ABC):
+    @abstractmethod
+    def get_procurements(self):
+        pass
+
+    @abstractmethod
+    def get_file_list(self):
+        pass
+    
+    @abstractmethod
+    def get_all_files(self):
+        pass
+
     def __init__(self, crawlerid, url, idcity, city, uf):
         self._url = url
         self._id = crawlerid
@@ -22,6 +35,16 @@ class CrawlerBase:
 
         if not(self.city_exists()):
             self.create_city()
+
+    def __str__(self):
+        return f"I'm the crawler of %s from the %s operating in the city ​​hall %s." % (self.name.upper(), self.company.upper(), self._cityhall.upper())
+
+    def __eq__(self, other):
+        try:
+            x = self._id_ibge == other
+        except:
+             x = self._id_ibge == other._id_ibge
+        return x
 
     def create_city(self):
         insert = f"INSERT INTO CITYS (ibge,uf,city_name,url_base,solution_id) VALUES( {self._id_ibge}, '{self._uf}' , '{self._cityhall}', '{self._url}', {self._id} );"
@@ -38,14 +61,35 @@ class CrawlerBase:
 
         exists = cur.fetchall()[0][0] > 0
         return exists
-    
-    def __str__(self):
-        return f"I'm the crawler of %s from the %s operating in the city ​​hall %s." % (self.name.upper(), self.company.upper(), self._cityhall.upper())
 
     def query_produrements(self, limit=99999999):
         con = sqlite3.connect("scraped.db", timeout=50)
         cur = con.cursor()
         cur.execute("SELECT ibge, procurement_id, year, procurement_type, procurement FROM PROCUREMENTS WHERE ibge=? LIMIT ?", (self._id_ibge, limit))
+
+        rows = cur.fetchall()
+
+        return rows
+
+    def query_produrements_empty_field(self, field_name, limit=99999999):
+        con = sqlite3.connect("scraped.db", timeout=50)
+        cur = con.cursor()
+        cur.execute(f"SELECT ibge, procurement_id, year, procurement_type, procurement, goal FROM PROCUREMENTS WHERE ibge=? and {field_name} is null LIMIT ?", (self._id_ibge, limit))
+
+        rows = cur.fetchall()
+
+        return rows
+    
+
+    def query_produrements_goal(self, limit=99999999, fields='', filter=''):
+        con = sqlite3.connect("scraped.db", timeout=50)
+        cur = con.cursor()
+        if filter != '':
+            filter = ' and ' + filter
+        if fields != '':
+            fields = ', ' + fields
+        select = f"SELECT ibge, procurement_id, year, procurement_type, procurement, goal {fields} FROM PROCUREMENTS WHERE ibge=? {filter} LIMIT ?"
+        cur.execute(select, (self._id_ibge, limit))
 
         rows = cur.fetchall()
 
@@ -106,6 +150,19 @@ class CrawlerBase:
         rows = cur.fetchall()
 
         return rows
+
+    def update_procurements_filed(self, field, list_id, list_new_value):
+
+        update = f"UPDATE PROCUREMENTS set {field} = ? where ibge = ? and procurement_id = ?"
+        con = sqlite3.connect("scraped.db")
+        cursor = con.cursor()
+        to_update = []
+        for id, new_value in zip(list_id, list_new_value):
+            to_update.append((new_value, self._id_ibge, id))
+        cursor.executemany(update, to_update)
+        con.commit()
+        con.close()
+        pass
 
     def manual_update_file(self, id, fileid, text):
         update = "UPDATE FILES set OCR_RAW = ? where ibge = ? and procurement_id = ? and file_id = ?"
