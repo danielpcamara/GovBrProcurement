@@ -1,6 +1,7 @@
 # Excel files
 *.xlsx
 *.xls
+*.csv
 
 # Extracted Data
 Files/

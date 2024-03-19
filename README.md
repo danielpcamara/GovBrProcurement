@@ -57,6 +57,8 @@
     #Evaluation
     pip install openpyxl
     pip install pandas
+    pip install -U scikit-learn
+    pip install seaborn
     ```
 
 5. Create a ```config.json``` file similar to ```config_example.json```
