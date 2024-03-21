@@ -38,6 +38,7 @@
     ```
     #test
     pip install jupyter
+    
     #Scraping
     pip install aiohttp
     pip install asyncio
@@ -46,19 +47,24 @@
     pip install pytesseract
     pip install pdf2image
     pip install python-dateutil
+    
     #v2:
     pip install ironpdf 
     pip install aiopytesseract
     pip install python-docx 
+    
     #BERT
     pip install transformers torch
+    
     #GEMINI
     pip install -q -U google-generativeai
+    
     #Evaluation
     pip install openpyxl
     pip install pandas
     pip install -U scikit-learn
     pip install seaborn
+    pip install nltk
     ```
 
 5. Create a ```config.json``` file similar to ```config_example.json```
