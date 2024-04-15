@@ -30,8 +30,11 @@ for city in city_list:
     # Annotate in the database all files that are empty (0 size)
     city.mark_empty_files()
 
-    # Extract the text using OCR (and save in the database)
+    # Extract the text using OCR and reading docx (and save in the database)
     city.extract_text_all_files()
 
     # example of ingore Files that won't ne used
     #city.manual_update_file("2/2020/7", 22483, "<Ignore>")
+
+    #after this step you can use the gemini api to extract data, as shown in the test_gemini.ipynb file.
+    #however, the Gemini 1.0 API does not contain all the features to extract the necessary information.
